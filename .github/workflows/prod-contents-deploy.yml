@@ -76,5 +76,5 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/contents:latest
             docker image prune -a -f
-            cd BE-Contents-Server
+            cd ./BE-Contents-Server
             docker-compose up -d
