@@ -37,11 +37,17 @@ jobs:
           APPLICATION: ${{ secrets.APPLICATION_APIGATEWAY }}
           
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          cd BE-Member-Server
+          ls
+          chmod +x gradlew
   
       - name: Build with Gradle
-        run: ./gradlew build -x test
-  
+        run: |
+          cd BE-Member-Server
+          ls
+          ./gradlew build -x test
+            
       - name: Docker build
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -56,7 +62,7 @@ jobs:
             host: ${{ secrets.HOST_PROD_1 }}
             key: ${{ secrets.PRIVATE_KEY_1 }}
             port: ${{ secrets.PORT }}
-            source: "./docker-compose-apigateway.yml"
+            source: "./BE-APIGateway-Server/docker-compose-apigateway.yml"
             target: "/home/ec2-user/"
             
       - name: Deploy
@@ -64,8 +70,9 @@ jobs:
         with:
           host: ${{ secrets.HOST_PROD_1 }} 
           username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY_3 }} 
+          key: ${{ secrets.PRIVATE_KEY_1 }} 
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/apigateway:latest
             docker image prune -a -f
-            docker-compose up -d
+            cd ./BE-APIGateway-Server
+            docker-compose -f docker-compose-apigateway.yml up
