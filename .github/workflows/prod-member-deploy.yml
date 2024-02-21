@@ -30,8 +30,9 @@ jobs:
       
       - name: Make application.yml
         run: |
-          mkdir -p BE-Member-Server/src/main/resources
-          echo "$APPLICATION_MEMBER" > src/main/resources/application.yml
+          cd BE-Member-Server
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_MEMBER }}" > src/main/resources/application.yml
         env:
           APPLICATION: ${{ secrets.APPLICATION_MEMBER }}
           
