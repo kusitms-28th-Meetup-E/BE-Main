@@ -64,7 +64,7 @@ jobs:
             host: ${{ secrets.HOST_PROD_2 }}
             key: ${{ secrets.PRIVATE_KEY_CONTENTS }}
             port: ${{ secrets.PORT }}
-            source: "./docker-compose-contents.yml"
+            source: "./BE-Contents-Server/docker-compose-contents.yml"
             target: "/home/ec2-user/"
 
       - name: Deploy
