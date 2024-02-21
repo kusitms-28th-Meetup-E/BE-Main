@@ -76,4 +76,4 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/contents:latest
             docker image prune -a -f
-            docker-compose up -dons/dependency-submission@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
+            docker-compose up -d
