@@ -37,10 +37,16 @@ jobs:
           APPLICATION: ${{ secrets.APPLICATION_MEMBER }}
           
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          cd BE-Member-Server
+          ls
+          chmod +x gradlew
   
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: |
+          cd BE-Member-Server
+          ls
+          ./gradlew build -x test
   
       - name: Docker build
         run: |
