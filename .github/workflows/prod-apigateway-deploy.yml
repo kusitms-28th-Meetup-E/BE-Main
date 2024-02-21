@@ -27,11 +27,17 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Clean Gradle Cache
+        run: |
+          cd BE-APIGateway-Server
+          ls
+          ./gradlew clean
       
       - name: Make application.yml
         run: |
           mkdir -p src/main/resources
-          echo "${{ secrets.APPLICATION_APIGATEWAY }}" > src/main/resources/application.yml
+          echo "$APPLICATION" > src/main/resources/application.yml
         env:
           APPLICATION: ${{ secrets.APPLICATION_APIGATEWAY }}
           
