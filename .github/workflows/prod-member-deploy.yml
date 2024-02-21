@@ -32,7 +32,7 @@ jobs:
         run: |
           cd BE-Member-Server
           mkdir -p src/main/resources
-          echo "${{ secrets.APPLICATION_MEMBER }}" > src/main/resources/application.yml
+          echo "$APPLICATION_MEMBER" > src/main/resources/application.yml
         env:
           APPLICATION: ${{ secrets.APPLICATION_MEMBER }}
           
