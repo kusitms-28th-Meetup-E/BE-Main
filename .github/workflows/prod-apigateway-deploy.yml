@@ -68,7 +68,7 @@ jobs:
             host: ${{ secrets.HOST_PROD_1 }}
             key: ${{ secrets.PRIVATE_KEY_1 }}
             port: ${{ secrets.PORT }}
-            source: "./BE-APIGateway-Server/docker-compose-apigateway.yml"
+            source: "./BE-APIGateway-Server/docker-compose-gateway.yml"
             target: "/home/ec2-user/"
             
       - name: Deploy
