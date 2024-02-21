@@ -30,8 +30,9 @@ jobs:
       
       - name: Make application.yml
         run: |
+          cd BE-Community-Server
           mkdir -p src/main/resources
-          echo "$APPLICATION_COMMUNITY" > src/main/resources/application.yml
+          echo "${{ secrets.APPLICATION_COMMUNITY }}" > src/main/resources/application.yml
         env:
           APPLICATION: ${{ secrets.APPLICATION_COMMUNITY }}
           
