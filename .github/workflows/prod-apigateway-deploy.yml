@@ -30,7 +30,6 @@ jobs:
       
       - name: Make application.yml
         run: |
-          cd BE-APIGateway-Server
           mkdir -p src/main/resources
           echo "${{ secrets.APPLICATION_APIGATEWAY }}" > src/main/resources/application.yml
         env:
