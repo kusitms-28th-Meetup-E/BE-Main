@@ -63,8 +63,9 @@ jobs:
             host: ${{ secrets.HOST_PROD_3 }}
             key: ${{ secrets.PRIVATE_KEY_3 }}
             port: ${{ secrets.PORT }}
-            source: "/BE-Member-Server/docker-compose-member.yml"
-            
+            source: "./BE-Member-Server/docker-compose-member.yml"
+            target: "/home/ec2-user/"
+
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
@@ -74,4 +75,5 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/member:latest
             docker image prune -a -f
-            docker-compose up -d
+            cd ./BE-Member-Server
+            docker-compose -f docker-compose-member.yml up
