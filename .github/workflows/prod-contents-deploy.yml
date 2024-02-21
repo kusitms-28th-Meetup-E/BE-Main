@@ -77,4 +77,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/contents:latest
             docker image prune -a -f
             cd ./BE-Contents-Server
-            docker-compose-contents up -d
+            docker-compose -f docker-compose-contents.yml up
