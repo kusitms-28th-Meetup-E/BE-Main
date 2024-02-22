@@ -27,33 +27,49 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Clean Gradle Cache
+        run: |
+          cd BE-APIGateway-Server
+          ls
+          ./gradlew clean
       
       - name: Make application.yml
         run: |
-          cd BE-APIGateway-Server
           mkdir -p src/main/resources
-          echo "${{ secrets.APPLICATION_APIGATEWAY }}" > src/main/resources/application.yml
+          echo "$APPLICATION" > src/main/resources/application.yml
         env:
           APPLICATION: ${{ secrets.APPLICATION_APIGATEWAY }}
           
       - name: Grant execute permission for gradlew
         run: |
-          cd BE-Member-Server
+          cd BE-APIGateway-Server
           ls
           chmod +x gradlew
   
       - name: Build with Gradle
         run: |
-          cd BE-Member-Server
+          cd BE-APIGateway-Server
           ls
           ./gradlew build -x test
             
       - name: Docker build
         run: |
+          cd BE-APIGateway-Server
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -t app .
           docker tag app ${{ secrets.DOCKER_USERNAME }}/apigateway:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/apigateway:latest
+     
+      - name: Stop and Remove existing Docker containers
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_PROD_1 }} 
+          username: ec2-user
+          key: ${{ secrets.PRIVATE_KEY_1 }} 
+          script: |
+            cd ./BE-APIGateway-Server
+            docker-compose -f docker-compose-gateway.yml down
       
       - name: docker-compose.yml 
         uses: appleboy/scp-action@master
@@ -62,7 +78,7 @@ jobs:
             host: ${{ secrets.HOST_PROD_1 }}
             key: ${{ secrets.PRIVATE_KEY_1 }}
             port: ${{ secrets.PORT }}
-            source: "./BE-APIGateway-Server/docker-compose-apigateway.yml"
+            source: "./BE-APIGateway-Server/docker-compose-gateway.yml"
             target: "/home/ec2-user/"
             
       - name: Deploy
@@ -75,4 +91,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/apigateway:latest
             docker image prune -a -f
             cd ./BE-APIGateway-Server
-            docker-compose -f docker-compose-apigateway.yml up
+            docker-compose -f docker-compose-gateway.yml up -d
+      
