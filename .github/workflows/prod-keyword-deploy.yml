@@ -1,4 +1,4 @@
-name: ContentsService
+name: KeywordService
 
 on:
   push:
