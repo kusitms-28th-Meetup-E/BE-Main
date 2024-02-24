@@ -70,4 +70,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/keyword:latest
             docker image prune -a -f
             cd ./BE-Keyword-Server
-            docker-compose -f docker-compose-keyword.yml up
+            docker-compose -f docker-compose-keyword.yml up -d
