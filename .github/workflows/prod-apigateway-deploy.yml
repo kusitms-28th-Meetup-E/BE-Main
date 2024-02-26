@@ -37,7 +37,7 @@ jobs:
       - name: Make application.yml
         run: |
           mkdir -p src/main/resources
-          echo "$APPLICATION" > src/main/resources/application.yml
+          echo "$APPLICATION_APIGATEWAY" > src/main/resources/application.yml
         env:
           APPLICATION: ${{ secrets.APPLICATION_APIGATEWAY }}
           
