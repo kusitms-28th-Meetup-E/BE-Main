@@ -15,7 +15,7 @@ services:
     ports:
       - 8888:8888
     networks:
-      - be-apigateway-server_msa-network
+      - msa-network
 
   eureka:
     image: gwangjang/eureka:latest
