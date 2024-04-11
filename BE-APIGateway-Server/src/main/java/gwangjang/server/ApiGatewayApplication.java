@@ -29,5 +29,6 @@ public class ApiGatewayApplication {
     public KeyResolver tokenKeyResolver() {
         return exchange -> Mono.just(exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0));
     }
+    
 
 }
