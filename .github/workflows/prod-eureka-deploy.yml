@@ -60,9 +60,9 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST_PROD_1 }} 
+          host: ${{ secrets.HOST_PROD_2 }} 
           username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY_1 }} 
+          key: ${{ secrets.PRIVATE_KEY_2 }} 
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/eureka:latest
             docker stop $(docker ps -a -q)
