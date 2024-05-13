@@ -92,4 +92,5 @@ jobs:
             docker image prune -a -f
             cd ./BE-APIGateway-Server
             docker-compose -f docker-compose-gateway.yml up -d
+
       
